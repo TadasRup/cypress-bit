@@ -6,25 +6,22 @@ describe('Issue spec', () => {
     let deleteIssueTitle;
 
     beforeEach(() =>{
-      cy.visit(`${Cypress.env("url")}/register`)
+      cy.goTo(`/register`)
       cy.contains(/log in to webIssues/i)
-      cy.get('input[id="field-login-login"]').type(Cypress.env("username"))
-      cy.get('input[id="field-login-password"]').type(Cypress.env("password"))
-      cy.get('#field-login-loginSubmit').click()
+      cy.login(Cypress.env("username"), Cypress.env("password"))
       cy.contains(/Administration Panel/i)
       cy.get(
         `a[href="${Cypress.env("url")}/register/index.php"]`
       ).contains(/Log Out/i)
 
-      cy.visit(
-        `${Cypress.env("url")}/register/client/index.php?folder=1`)
+      cy.goTo(`/register/client/index.php?folder=1`)
 
       
     });
 
     after(() => {
         if (createIssueTitle !== undefined) {
-        cy.visit(`${Cypress.env("url")}/register/client/index.php?folder=1`
+        cy.goTo(`/register/client/index.php?folder=1`
         );
         cy.get('[name="searchBox"]').type(createIssueTitle);
         cy.get('#field-search-searchSubmit').click()
@@ -36,18 +33,16 @@ describe('Issue spec', () => {
 
     before(() =>{
         deleteIssueTitle = faker.string.uuid();
-        cy.visit(`${Cypress.env("url")}/register`)
+        cy.goTo(`/register`)
         cy.contains(/log in to webIssues/i)
-        cy.get('input[id="field-login-login"]').type(Cypress.env("username"))
-        cy.get('input[id="field-login-password"]').type(Cypress.env("password"))
-        cy.get('#field-login-loginSubmit').click()
+        cy.login(Cypress.env("username"), Cypress.env("password"))
         cy.contains(/Administration Panel/i)
         cy.get(
           `a[href="${Cypress.env("url")}/register/index.php"]`
         ).contains(/Log Out/i)
 
-        cy.visit(
-            `${Cypress.env("url")}/register/client/index.php?folder=1`)
+        cy.goTo(
+            `/register/client/index.php?folder=1`)
 
         cy.get('[title="Add Issue"]').click();
         cy.get('#field-issues-issueName').type(deleteIssueTitle)

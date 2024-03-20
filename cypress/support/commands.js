@@ -23,3 +23,24 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('goTo', (path) => {
+    cy.visit(`${Cypress.env("url")}${path}`)
+})
+
+Cypress.Commands.add('login', (user, password) => {
+    cy.get('input[id="field-login-login"]').type(user)
+    cy.get('input[id="field-login-password"]').type(password)
+    cy.get('#field-login-loginSubmit').click()
+})
+
+Cypress.Commands.add('getElement', (element) => {
+    return cy.get(`[title="${element}"]`)
+})
+
+Cypress.Commands.add('getElement', (element) => {
+    cy.get('[title="Add Issue"]').as("add-issue-button")
+    cy.get("#field-issues-issueName").as("issue-name-input")
+    cy.get("#field-issues-description").as("issue-desciption-input")
+})
+

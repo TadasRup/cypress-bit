@@ -6,25 +6,25 @@ describe('Issue spec', () => {
     let deleteIssueTitle;
 
     beforeEach(() =>{
-      cy.visit('https://www.testingmarathon.com/register')
+      cy.visit(`${Cypress.env("url")}/register`)
       cy.contains(/log in to webIssues/i)
-      cy.get('input[id="field-login-login"]').type('tadas.msp@gmail.com')
-      cy.get('input[id="field-login-password"]').type('tadas.msp@gmail.com')
+      cy.get('input[id="field-login-login"]').type(Cypress.env("username"))
+      cy.get('input[id="field-login-password"]').type(Cypress.env("password"))
       cy.get('#field-login-loginSubmit').click()
       cy.contains(/Administration Panel/i)
       cy.get(
-        'a[href="https://www.testingmarathon.com/register/index.php"]'
+        `a[href="${Cypress.env("url")}/register/index.php"]`
       ).contains(/Log Out/i)
 
       cy.visit(
-        'https://www.testingmarathon.com/register/client/index.php?folder=1')
+        `${Cypress.env("url")}/register/client/index.php?folder=1`)
 
       
     });
 
     after(() => {
         if (createIssueTitle !== undefined) {
-        cy.visit('https://www.testingmarathon.com/register/client/index.php?folder=1'
+        cy.visit(`${Cypress.env("url")}/register/client/index.php?folder=1`
         );
         cy.get('[name="searchBox"]').type(createIssueTitle);
         cy.get('#field-search-searchSubmit').click()
@@ -36,18 +36,18 @@ describe('Issue spec', () => {
 
     before(() =>{
         deleteIssueTitle = faker.string.uuid();
-        cy.visit('https://www.testingmarathon.com/register')
+        cy.visit(`${Cypress.env("url")}/register`)
         cy.contains(/log in to webIssues/i)
-        cy.get('input[id="field-login-login"]').type('tadas.msp@gmail.com')
-        cy.get('input[id="field-login-password"]').type('tadas.msp@gmail.com')
+        cy.get('input[id="field-login-login"]').type(Cypress.env("username"))
+        cy.get('input[id="field-login-password"]').type(Cypress.env("password"))
         cy.get('#field-login-loginSubmit').click()
         cy.contains(/Administration Panel/i)
         cy.get(
-          'a[href="https://www.testingmarathon.com/register/index.php"]'
+          `a[href="${Cypress.env("url")}/register/index.php"]`
         ).contains(/Log Out/i)
 
         cy.visit(
-            'https://www.testingmarathon.com/register/client/index.php?folder=1')
+            `${Cypress.env("url")}/register/client/index.php?folder=1`)
 
         cy.get('[title="Add Issue"]').click();
         cy.get('#field-issues-issueName').type(deleteIssueTitle)

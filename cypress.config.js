@@ -6,8 +6,8 @@ module.exports = defineConfig({
     username: process.env.USERNAME,
     password: process.env.PASSWORD,
     url: process.env.URL,
-    api_url: process.env.API_URL,
-    key: process.env.API_KEY,
+    apiUrl: process.env.API_URL,
+    apiKey: process.env.API_KEY,
   },
   e2e: {
     setupNodeEvents(on, config) {
